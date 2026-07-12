@@ -11,9 +11,10 @@
     ../modules/shell.nix
     ../modules/neovim.nix
     ../modules/openssh.nix
+    ../modules/builder.nix
   ];
 
-  nix = { 
+  nix = {
     settings.experimental-features = [
       "nix-command"
       "flakes"
@@ -51,7 +52,7 @@
     variant = "";
   };
 
-  programs = { 
+  programs = {
     ssh.startAgent = true;
     nix-ld.enable = true;
   };

@@ -45,6 +45,7 @@ in
 {
   users.users.builder = {
     isSystemUser = true;
+    group = "builder";
     description = "Nix remote builder user";
     shell = pkgs.bashInteractive;
     hashedPassword = "!";
@@ -52,6 +53,7 @@ in
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJQhxpuxN6uDZK4AZP4kmEl503kBC7/eTScFgYeUG3hM builder@all"
     ];
   };
+  users.groups.builder = {};
 
   nix = {
     inherit buildMachines;
