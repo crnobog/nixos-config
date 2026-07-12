@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  hosts,
   ...
 }:
 {
@@ -25,14 +26,8 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAUsI71T8IWeWGIQY8G7ckNVZcN/scUHZ4yZwCsN7tGM rob@puck"
   ];
 
-  programs.ssh.knownHosts = { 
-    "meshify" = {
-      hostNames = [ "192.168.0.126 "];
-      publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAJEMzg5GZ9mz1x8ujXPXgD03Y37eBT4I7HFE78HB418";
-    };
-    "puck" = {
-      hostNames = [ "192.168.0.156 "];
-      publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAikxJyr2aBfVWqnrxu/Ual1hrMRg/dq0OYSmora8xaB";
-    };
-  };
+  programs.ssh.knownHosts = lib.mapAttrs (hostName: host: {
+    hostNames = [ host.ip ];
+    publicKey = host.publicKey;
+  }) (lib.filterAttrs (hostName: host: host ? publicKey) hosts);
 }

@@ -8,28 +8,71 @@
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixos-wsl }@inputs :
-  let 
-    lib = nixpkgs.lib;
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nixos-wsl,
+    }@inputs:
+    let
+      lib = nixpkgs.lib;
 
-    mkHost = { hostname, system ? "x86_64-linux", extraModules ? [], wsl ? false }:
-      lib.nixosSystem {
-        inherit system;
-        specialArgs = { 
-            inherit inputs hostname wsl;
+      hosts = {
+        puck = {
+          hostName = "puck";
+          ip = "192.168.0.156";
+          publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAikxJyr2aBfVWqnrxu/Ual1hrMRg/dq0OYSmora8xaB";
         };
-        modules = [
-          ./hosts/${hostname}
-        ] ++ extraModules;
+        meshify = {
+          hostName = "meshify";
+          ip = "192.168.0.126";
+          publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAJEMzg5GZ9mz1x8ujXPXgD03Y37eBT4I7HFE78HB418";
+        };
+        laptop-wsl = {
+          hostName = "laptop-wsl";
+          ip = "192.168.0.211";
+          wsl = true;
+          extraModules = [ nixos-wsl.nixosModules.default ];
+        };
+        terra = {
+          hostName = "terra";
+          ip = "192.168.0.147";
+        };
+        laptop = {
+          hostName = "laptop";
+          ip = "192.168.0.211";
+        };
       };
-  in {
-    nixosConfigurations = { 
-      laptop-wsl = mkHost { 
-        hostname = "laptop-wsl"; 
-        extraModules = [ nixos-wsl.nixosModules.default ];
+
+      mkHost =
+        {
+          hostName,
+          system ? "x86_64-linux",
+          extraModules ? [ ],
+          wsl ? false,
+          ...
+        }:
+        lib.nixosSystem {
+          inherit system;
+          specialArgs = {
+            inherit
+              inputs
+              hostName
+              wsl
+              hosts
+              ;
+          };
+          modules = [
+            ./hosts/${hostName}
+          ]
+          ++ extraModules;
+        };
+    in
+    {
+      nixosConfigurations = {
+        puck = mkHost hosts.puck;
+        meshify = mkHost hosts.meshify;
+        laptop-wsl = mkHost hosts.laptop-wsl;
       };
-      meshify = mkHost { hostname = "meshify"; };
-      puck = mkHost { hostname = "puck"; };
     };
-  };
 }

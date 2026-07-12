@@ -3,8 +3,9 @@
   imports = [
     ./hardware-configuration.nix
     ../common.nix
-    ../../modules/cpp.nix
   ];
+
+  my.cpp.enable = true;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

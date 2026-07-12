@@ -2,9 +2,13 @@
   config,
   lib,
   pkgs,
-  hostname,
+  hostName,
+  hosts,
   ...
 }:
+let 
+  hostsByIp = lib.mapAttrs' (hostName: host: lib.nameValuePair host.ip [ host.hostName ]) hosts;
+in
 {
   imports = [
     ../users/rob
@@ -12,6 +16,7 @@
     ../modules/neovim.nix
     ../modules/openssh.nix
     ../modules/builder.nix
+    ../modules/cpp.nix
   ];
 
   nix = {
@@ -37,14 +42,9 @@
   time.timeZone = "America/Vancouver";
   i18n.defaultLocale = "en_CA.UTF-8";
   networking = {
-    hostName = hostname;
+    hostName = hostName;
     networkmanager.enable = true;
-    hosts = {
-      "192.168.0.156" = [ "puck" ];
-      "192.168.0.126" = [ "meshify" ];
-      "192.168.0.147" = [ "terra" ];
-      "192.168.0.211" = [ "laptop" ];
-    };
+    hosts = lib.mapAttrs' (hostName: host: lib.nameValuePair host.ip [ host.hostName ]) hosts;
   };
 
   services.xserver.xkb = {
