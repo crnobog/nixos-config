@@ -34,6 +34,14 @@
   time.timeZone = "America/Vancouver";
   i18n.defaultLocale = "en_CA.UTF-8";
   networking.hostName = hostname;
+  networking.networkmanager.enable = true;
+
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "";
+  };
+
+  programs.ssh.startAgent = true;
 
   environment.systemPackages = with pkgs; [
     btop
