@@ -51,12 +51,4 @@
 
   # Let non-root users run `perf record`/`perf stat` without sudo.
   boot.kernel.sysctl."kernel.perf_event_paranoid" = 1;
-
-  # ccache works best with a persistent, larger-than-default cache dir.
-  environment.variables = {
-    CCACHE_DIR = "/var/cache/ccache";
-  };
-  systemd.tmpfiles.rules = [
-    "d /var/cache/ccache 0775 root wheel -"
-  ];
 }
