@@ -29,6 +29,7 @@
         extraModules = [ nixos-wsl.nixosModules.default ];
       };
       meshify = mkHost { hostname = "meshify"; };
+      puck = mkHost { hostname = "puck"; };
     };
   };
 }
