@@ -35,8 +35,16 @@
 
   time.timeZone = "America/Vancouver";
   i18n.defaultLocale = "en_CA.UTF-8";
-  networking.hostName = hostname;
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = hostname;
+    networkmanager.enable = true;
+    hosts = {
+      "192.168.0.156" = [ "puck" ];
+      "192.168.0.126" = [ "meshify" ];
+      "192.168.0.147" = [ "terra" ];
+      "192.168.0.211" = [ "laptop" ];
+    };
+  };
 
   services.xserver.xkb = {
     layout = "us";
