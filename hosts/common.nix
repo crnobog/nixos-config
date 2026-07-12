@@ -17,6 +17,7 @@ in
     ../modules/openssh.nix
     ../modules/builder.nix
     ../modules/cpp.nix
+    ../modules/llm-inference.nix
   ];
 
   nix = {
