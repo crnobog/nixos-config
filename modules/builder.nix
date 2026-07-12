@@ -6,7 +6,7 @@
   ...
 }:
 let
-  buildMachines = builtins.filter (b: b.hostName != "${hostname}-builder") [
+  buildMachines = builtins.filter (b: b.hostName != "${hostname}") [
     {
       hostName = "puck";
       system = "x86_64-linux";
@@ -43,6 +43,8 @@ let
   ];
 in
 {
+  services.openssh.settings.AllowUsers = [ "builder" ];
+
   users.users.builder = {
     isSystemUser = true;
     group = "builder";
