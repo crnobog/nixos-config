@@ -18,6 +18,7 @@ in
     ../modules/builder.nix
     ../modules/cpp.nix
     ../modules/llm-inference.nix
+    ../modules/nfs.nix
   ];
 
   nix = {
