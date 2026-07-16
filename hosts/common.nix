@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  pkgs-unstable,
   hostName,
   hosts,
   ...
@@ -72,5 +73,7 @@ in
     unzip
     wget
     yazi
+    
+    pkgs-unstable.codex
   ];
 }
