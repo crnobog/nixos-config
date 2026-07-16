@@ -38,7 +38,7 @@ in
     (mkIf cfg.sycl {
       hardware.graphics.enable = true;
       environment.systemPackages = with pkgs; [
-        llama-cpp 
+        llama-cpp-vulkan
         intel-compute-runtime
         intel-media-driver
         intel-graphics-compiler
