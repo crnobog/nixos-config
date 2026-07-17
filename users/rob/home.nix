@@ -1,5 +1,8 @@
 { ... }:
 {
+  imports = [
+    ./modules/neovim.nix
+  ];
   programs.fzf = {
     enable = true;
     enableBashIntegration = true;
@@ -19,7 +22,7 @@
       user.email = "robert.millar@cantab.net";
     };
   };
-  programs.oh-my-posh = { 
+  programs.oh-my-posh = {
     enable = true;
     enableBashIntegration = true;
     enableZshIntegration = true;

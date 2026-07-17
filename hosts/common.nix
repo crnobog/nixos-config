@@ -14,7 +14,6 @@ in
   imports = [
     ../users/rob
     ../modules/shell.nix
-    ../modules/neovim.nix
     ../modules/openssh.nix
     ../modules/builder.nix
     ../modules/cpp.nix

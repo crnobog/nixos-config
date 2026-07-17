@@ -14,6 +14,9 @@
 
     pi.url = "github:lukasl-dev/pi.nix";
     pi.inputs.nixpkgs.follows = "nixpkgs";
+
+    nvf.url = "github:NotAShelf/nvf";
+    nvf.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -24,6 +27,7 @@
       nixos-wsl,
       home-manager,
       pi,
+      nvf,
     }@inputs:
     let
       lib = nixpkgs.lib;
@@ -82,6 +86,9 @@
               home-manager.backupFileExtension = ".bak";
               home-manager.overwriteBackup = true;
               home-manager.users.rob = import ./users/rob/home.nix;
+              home-manager.sharedModules = [ 
+                nvf.homeManagerModules.default
+              ];
             }
           ]
           ++ extraModules;
