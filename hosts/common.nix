@@ -60,6 +60,10 @@ in
     nix-ld.enable = true;
   };
 
+  environment.pathsToLink = [
+    "/share/zsh"
+  ];
+
   environment.systemPackages = with pkgs; [
     bat
     btop

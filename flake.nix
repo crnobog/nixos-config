@@ -79,6 +79,8 @@
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = ".bak";
+              home-manager.overwriteBackup = true;
               home-manager.users.rob = import ./users/rob/home.nix;
             }
           ]
