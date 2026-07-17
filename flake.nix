@@ -9,6 +9,9 @@
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
 
+    home-manager.url = "github:nix-community/home-manager/release-26.05";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
     pi.url = "github:lukasl-dev/pi.nix";
     pi.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -19,6 +22,7 @@
       nixpkgs,
       nixpkgs-unstable,
       nixos-wsl,
+      home-manager,
       pi,
     }@inputs:
     let
@@ -72,6 +76,11 @@
           };
           modules = [
             ./hosts/${hostName}
+            home-manager.nixosModules.home-manager {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.rob = import ./users/rob/home.nix;
+            }
           ]
           ++ extraModules;
         };
