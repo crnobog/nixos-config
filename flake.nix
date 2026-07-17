@@ -8,6 +8,9 @@
 
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
+
+    pi.url = "github:lukasl-dev/pi.nix";
+    pi.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -16,6 +19,7 @@
       nixpkgs,
       nixpkgs-unstable,
       nixos-wsl,
+      pi,
     }@inputs:
     let
       lib = nixpkgs.lib;
@@ -64,6 +68,7 @@
               hosts
               ;
             pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
+            pkgs-pi = pi.packages.${system};
           };
           modules = [
             ./hosts/${hostName}
