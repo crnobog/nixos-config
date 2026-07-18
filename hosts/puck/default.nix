@@ -1,5 +1,8 @@
-{ config, pkgs , ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ../common.nix
@@ -13,6 +16,11 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   nixpkgs.config.allowUnfree = true;
+
+  hardware.graphics.extraPackages = with pkgs; [
+    intel-compute-runtime
+    intel-compute-runtime.drivers
+  ];
 
   system.stateVersion = "26.05";
 }
