@@ -14,6 +14,21 @@
     settings = {
       user.name = "Robert Millar";
       user.email = "robert.millar@cantab.net";
+      core = {
+        pager = "delta";
+      };
+      interactive = {
+        diffFilter = "delta --color-only";
+      };
+      delta = {
+        "line-numbers" = true;
+        "side-by-side" = true;
+        navigate = true;
+        dark = true;
+      };
+      merge = {
+        conflictStyle = "zdiff3";
+      };
     };
   };
   programs.jujutsu = {

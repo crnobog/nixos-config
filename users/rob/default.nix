@@ -14,6 +14,7 @@
       "wheel"
     ];
     packages = with pkgs; [
+      delta
       tealdeer
 
       pkgs-pi.coding-agent
