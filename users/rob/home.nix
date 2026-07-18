@@ -1,13 +1,14 @@
-{ ... }:
-{
+{...}: {
   imports = [
     ./modules/neovim.nix
+    ./modules/zsh.nix
   ];
   programs.fzf = {
     enable = true;
     enableBashIntegration = true;
     enableZshIntegration = true;
   };
+  programs.gh.enable = true;
   programs.git = {
     enable = true;
     settings = {
@@ -29,30 +30,6 @@
     useTheme = "probua.minimal";
   };
   programs.ripgrep.enable = true;
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    autocd = false;
-    autosuggestion.enable = true;
-    localVariables = {
-      VI_MODE_SET_CURSOR = true;
-    };
-    oh-my-zsh = {
-      enable = true;
-      plugins = [
-        "git"
-        "gh"
-        "jj"
-        "vi-mode"
-        "command-not-found"
-        "fzf"
-        "history"
-        "rsync"
-        "sudo"
-        "rust"
-      ];
-    };
-  };
   programs.zoxide = {
     enable = true;
     enableBashIntegration = true;
