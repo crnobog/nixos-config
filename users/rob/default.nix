@@ -12,6 +12,8 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "video"
+      "render"
     ];
     packages = with pkgs; [
       delta
