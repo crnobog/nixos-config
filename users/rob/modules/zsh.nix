@@ -1,4 +1,4 @@
-{...}: {
+{lib, ...}: {
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -22,14 +22,12 @@
     #     "rust"
     #   ];
     # };
+    initContent = lib.mkAfter ''
+      unsetopt extendedglob
+    '';
     prezto = {
       enable = true;
       editor.keymap = "vi";
-      extraConfig = ''
-        if [[ -n "$NVIM$" || -n "$VIM_TERMINAL" || -n "$VIMRUNTIME" ]]; then
-          bindkey -e
-        fi
-      '';
     };
   };
 }
