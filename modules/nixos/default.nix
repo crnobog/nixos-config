@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, lib, hosts, hostName, ... } :
+{ pkgs, pkgs-unstable, lib, inventory, hostName, ... } :
 {
   imports = [
     ./shell.nix
@@ -21,7 +21,7 @@
   networking = {
     hostName = hostName;
     networkmanager.enable = true;
-    hosts = lib.mapAttrs' (hostName: host: lib.nameValuePair host.ip [ host.hostName ]) hosts;
+    hosts = lib.mapAttrs' (hostName: host: lib.nameValuePair host.ip [ host.hostName ]) inventory;
   };
 
   services.xserver.xkb = {

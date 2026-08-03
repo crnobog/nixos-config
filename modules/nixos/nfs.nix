@@ -1,4 +1,4 @@
-{ config, lib, pkgs, hostName, hosts, ... } : 
+{ config, lib, pkgs, hostName, inventory, ... } : 
 {
   config = if (hostName == "meshify") then {
     services.nfs.server.enable = true;
@@ -11,11 +11,11 @@
   } else {
     boot.supportedFilesystems = [ "nfs" ];
     fileSystems."/nfs/meshify/bulk" = { 
-      device = "${hosts.meshify.ip}:/bulk";
+      device = "${inventory.meshify.ip}:/bulk";
       fsType = "nfs4";
     };
     fileSystems."/nfs/meshify/fast" = { 
-      device = "${hosts.meshify.ip}:/fast";
+      device = "${inventory.meshify.ip}:/fast";
       fsType = "nfs4";
     };
   };
