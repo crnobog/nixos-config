@@ -5,6 +5,9 @@
 }: let
   inherit (inputs.nvf.lib.nvim.binds) mkKeymap;
 in {
+  imports = [
+    inputs.nvf.homeManagerModules.default
+  ];
   programs.nvf.enable = true;
   programs.nvf.settings.vim = {
     vimAlias = true;

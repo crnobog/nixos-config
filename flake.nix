@@ -92,17 +92,10 @@
             ./modules/nixos
             ./hosts/${hostName}
             home-manager.nixosModules.home-manager
+            ./modules/common/home-manager.nix
             # TODO: Where to configure this?
             {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.backupFileExtension = ".bak";
-              home-manager.overwriteBackup = true;
               home-manager.users.rob = import ./home/rob;
-              home-manager.sharedModules = [
-                nvf.homeManagerModules.default
-              ];
-              home-manager.extraSpecialArgs = {inherit inputs;};
             }
           ]
           ++ extraModules;
@@ -130,17 +123,10 @@
             ./modules/darwin
             ./hosts/${hostName}
             home-manager.darwinModules.home-manager
+            ./modules/common/home-manager.nix
             # TODO: Where to configure this?
             {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.backupFileExtension = ".bak";
-              home-manager.overwriteBackup = true;
               home-manager.users.rob = import ./home/rob;
-              # home-manager.sharedModules = [
-              #   nvf.homeManagerModules.default
-              # ];
-              home-manager.extraSpecialArgs = {inherit inputs;};
             }
           ];
       };
