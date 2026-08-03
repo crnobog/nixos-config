@@ -1,7 +1,8 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ../common.nix
+    ../../modules/common/nix.nix
+    ../../modules/nixos
   ];
   
   wsl.enable = true;

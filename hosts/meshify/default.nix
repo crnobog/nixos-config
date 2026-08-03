@@ -1,8 +1,9 @@
 { config, pkgs , ... }:
 {
   imports = [
+    ../../modules/common/nix.nix
+    ../../modules/nixos
     ./hardware-configuration.nix
-    ../common.nix
   ];
 
   my.cpp.enable = true;

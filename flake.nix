@@ -6,6 +6,11 @@
 
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -23,6 +28,7 @@
     self,
     nixpkgs,
     nixpkgs-unstable,
+    nix-darwin,
     nixos-wsl,
     home-manager,
     pi,
@@ -41,6 +47,10 @@
         ip = "192.168.0.126";
         publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAJEMzg5GZ9mz1x8ujXPXgD03Y37eBT4I7HFE78HB418";
       };
+      sylph = { 
+        hostName = "sylph";
+        ip = "192.168.0.148";
+      };
       laptop-wsl = {
         hostName = "laptop-wsl";
         ip = "192.168.0.211";
@@ -57,7 +67,7 @@
       };
     };
 
-    mkHost = {
+    mkNixosHost = {
       hostName,
       system ? "x86_64-linux",
       extraModules ? [],
@@ -78,14 +88,17 @@
         };
         modules =
           [
+            ./modules/common/nix.nix
+            ./modules/nixos
             ./hosts/${hostName}
             home-manager.nixosModules.home-manager
+            # TODO: Where to configure this?
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.backupFileExtension = ".bak";
               home-manager.overwriteBackup = true;
-              home-manager.users.rob = import ./users/rob/home.nix;
+              home-manager.users.rob = import ./home/rob;
               home-manager.sharedModules = [
                 nvf.homeManagerModules.default
               ];
@@ -94,11 +107,51 @@
           ]
           ++ extraModules;
       };
+    mkDarwinHost = {
+      hostName,
+      system ? "aarch64-darwin",
+      ...
+    }:
+      nix-darwin.lib.darwinSystem {
+        inherit system;
+        specialArgs = {
+          inherit
+            self
+            hostName
+            hosts
+            inputs
+            ;
+          pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
+          # pkgs-pi = pi.packages.${system};
+        };
+        modules =
+          [
+            ./modules/common/nix.nix
+            ./modules/darwin
+            ./hosts/${hostName}
+            home-manager.darwinModules.home-manager
+            # TODO: Where to configure this?
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = ".bak";
+              home-manager.overwriteBackup = true;
+              home-manager.users.rob = import ./home/rob;
+              # home-manager.sharedModules = [
+              #   nvf.homeManagerModules.default
+              # ];
+              home-manager.extraSpecialArgs = {inherit inputs;};
+            }
+          ];
+      };
   in {
     nixosConfigurations = {
-      puck = mkHost hosts.puck;
-      meshify = mkHost hosts.meshify;
-      laptop-wsl = mkHost hosts.laptop-wsl;
+      puck = mkNixosHost hosts.puck;
+      meshify = mkNixosHost hosts.meshify;
+      laptop-wsl = mkNixosHost hosts.laptop-wsl;
+    };
+    darwinConfigurations = { 
+      sylph = mkDarwinHost hosts.sylph;
     };
   };
 }
