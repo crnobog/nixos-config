@@ -1,4 +1,11 @@
-{ pkgs, pkgs-unstable, lib, inventory, hostName, ... } :
+{
+  pkgs,
+  pkgs-unstable,
+  lib,
+  inventory,
+  hostName,
+  ...
+}:
 {
   imports = [
     ./shell.nix
@@ -51,7 +58,7 @@
     unzip
     wget
     yazi
-    
+
     pkgs-unstable.codex
   ];
 }

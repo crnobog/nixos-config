@@ -1,6 +1,6 @@
-{ ... } :
+{ ... }:
 {
-  users.users.rob = { 
+  users.users.rob = {
     home = "/Users/rob";
   };
 }

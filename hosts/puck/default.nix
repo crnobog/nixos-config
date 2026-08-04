@@ -2,7 +2,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ../../modules/common/nix.nix
     ../../modules/nixos
@@ -15,7 +16,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelParams = ["i915.enable_guc=3"];
+  boot.kernelParams = [ "i915.enable_guc=3" ];
 
   nixpkgs.config.allowUnfree = true;
 
@@ -26,7 +27,7 @@
     vpl-gpu-rt
   ];
 
-  services.xserver.videoDrivers = ["modesetting"];
+  services.xserver.videoDrivers = [ "modesetting" ];
 
   environment.sessionVariables = {
     LIBA_DRIVER_NAME = "iHD";

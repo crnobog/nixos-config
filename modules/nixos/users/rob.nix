@@ -1,4 +1,4 @@
-{ ... } : 
+{ ... }:
 {
   users.users.rob = {
     isNormalUser = true;

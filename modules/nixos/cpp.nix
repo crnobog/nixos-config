@@ -4,12 +4,12 @@
   pkgs,
   ...
 }:
-let 
+let
   cfg = config.my.cpp;
   inherit (lib) mkIf mkOption;
 in
 {
-  options.my = { 
+  options.my = {
     cpp.enable = mkOption {
       description = "Enable C++ / LLVM toolchain and related tooling";
       default = false;

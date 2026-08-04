@@ -9,7 +9,7 @@
     ip = "192.168.0.126";
     publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAJEMzg5GZ9mz1x8ujXPXgD03Y37eBT4I7HFE78HB418";
   };
-  sylph = { 
+  sylph = {
     hostName = "sylph";
     ip = "192.168.0.148";
   };

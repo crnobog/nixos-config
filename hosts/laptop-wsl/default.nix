@@ -4,7 +4,7 @@
     ../../modules/common/nix.nix
     ../../modules/nixos
   ];
-  
+
   wsl.enable = true;
   wsl.defaultUser = "rob";
 

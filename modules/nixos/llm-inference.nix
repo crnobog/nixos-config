@@ -24,7 +24,7 @@ in
         (pkgs.llama-cpp.override { cudaSupport = true; })
       ];
       # nixpkgs.config.cudaSupport = true; # makes pkgs.llama-cpp build with CUDA
-      nixpkgs.config.allowUnfree = true; 
+      nixpkgs.config.allowUnfree = true;
 
       hardware.graphics.enable = true; # OpenGL/CUDA userspace bits
       hardware.nvidia = {

@@ -50,7 +50,7 @@ in
     type = lib.types.bool;
   };
 
-  config = lib.mkIf cfg.enable { 
+  config = lib.mkIf cfg.enable {
     services.openssh.settings.AllowUsers = [ "builder" ];
 
     users.users.builder = {
@@ -63,7 +63,7 @@ in
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJQhxpuxN6uDZK4AZP4kmEl503kBC7/eTScFgYeUG3hM builder@all"
       ];
     };
-    users.groups.builder = {};
+    users.groups.builder = { };
 
     nix = {
       inherit buildMachines;

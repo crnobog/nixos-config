@@ -2,9 +2,11 @@
   lib,
   inputs,
   ...
-}: let
+}:
+let
   inherit (inputs.nvf.lib.nvim.binds) mkKeymap;
-in {
+in
+{
   imports = [
     inputs.nvf.homeManagerModules.default
   ];
@@ -93,7 +95,7 @@ in {
     };
 
     keymaps = [
-      (mkKeymap "t" "<Esc><Esc>" "<C-\\><C-n>" {desc = "Quick exit terminal mode";})
+      (mkKeymap "t" "<Esc><Esc>" "<C-\\><C-n>" { desc = "Quick exit terminal mode"; })
     ];
 
     terminal.toggleterm.enable = true;
@@ -106,8 +108,8 @@ in {
 
     autocmds = [
       {
-        event = ["FileType"];
-        pattern = ["nix"];
+        event = [ "FileType" ];
+        pattern = [ "nix" ];
         callback = lib.generators.mkLuaInline ''
           function()
             vim.bo.shiftwidth = 2;

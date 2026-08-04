@@ -24,41 +24,41 @@
     nvf.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    nixpkgs-unstable,
-    nix-darwin,
-    nixos-wsl,
-    home-manager,
-    pi,
-    nvf,
-  } @ inputs: let
-    lib = nixpkgs.lib;
-    
-    inventory = import ./modules/common/inventory.nix;
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nixpkgs-unstable,
+      nix-darwin,
+      nixos-wsl,
+      home-manager,
+      pi,
+      nvf,
+    }@inputs:
+    let
+      lib = nixpkgs.lib;
 
-    mkNixosHost = {
-      hostName,
-      system ? "x86_64-linux",
-      extraModules ? [],
-      wsl ? false,
-      ...
-    }:
-      lib.nixosSystem {
-        inherit system;
-        specialArgs = {
-          inherit
-            hostName
-            wsl
-            inventory
-            inputs
-            ;
-          pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
-          pkgs-pi = pi.packages.${system};
-        };
-        modules =
-          [
+      inventory = import ./modules/common/inventory.nix;
+
+      mkNixosHost =
+        {
+          hostName,
+          system ? "x86_64-linux",
+          extraModules ? [ ],
+          wsl ? false,
+          ...
+        }:
+        lib.nixosSystem {
+          inherit system;
+          specialArgs = {
+            inherit
+              hostName
+              wsl
+              inventory
+              inputs
+              ;
+          };
+          modules = [
             ./modules/common/nix.nix
             ./modules/nixos
             ./hosts/${hostName}
@@ -72,45 +72,43 @@
           ++ lib.optionals wsl [
             nixos-wsl.nixosModules.wsl
           ];
-      };
-    mkDarwinHost = {
-      hostName,
-      system ? "aarch64-darwin",
-      ...
-    }:
-      nix-darwin.lib.darwinSystem {
-        inherit system;
-        specialArgs = {
-          inherit
-            self
-            hostName
-            inventory
-            inputs
-            ;
-          pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
-          # pkgs-pi = pi.packages.${system};
         };
-        modules =
-          [
+      mkDarwinHost =
+        {
+          hostName,
+          system ? "aarch64-darwin",
+          ...
+        }:
+        nix-darwin.lib.darwinSystem {
+          inherit system;
+          specialArgs = {
+            inherit
+              self
+              hostName
+              inventory
+              inputs
+              ;
+          };
+          modules = [
             ./modules/common/nix.nix
             ./modules/darwin
             ./hosts/${hostName}
             home-manager.darwinModules.home-manager
             ./modules/common/home-manager.nix
-            # TODO: Where to configure this?
-            {
-              home-manager.users.rob = import ./home/rob;
-            }
           ];
+        };
+    in
+    {
+      nixosConfigurations = {
+        puck = mkNixosHost inventory.puck;
+        meshify = mkNixosHost inventory.meshify;
+        laptop-wsl = mkNixosHost inventory.laptop-wsl;
       };
-  in {
-    nixosConfigurations = {
-      puck = mkNixosHost inventory.puck;
-      meshify = mkNixosHost inventory.meshify;
-      laptop-wsl = mkNixosHost inventory.laptop-wsl;
+      darwinConfigurations = {
+        sylph = mkDarwinHost inventory.sylph;
+      };
+
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree;
+      formatter.aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixfmt-tree;
     };
-    darwinConfigurations = { 
-      sylph = mkDarwinHost inventory.sylph;
-    };
-  };
 }
