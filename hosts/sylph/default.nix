@@ -13,6 +13,16 @@
   home-manager.users.rob = import ../../home/rob;
   system.primaryUser = "rob";
 
+  homebrew = {
+    casks = [
+      "discord"
+      "font-jetbrains-mono"
+      "font-jetbrains-mono-nerd-font"
+      "ghostty"
+      "visual-studio-code"
+    ];
+  };
+
   # Set Git commit hash for darwin-version.
   system.configurationRevision = self.rev or self.dirtyRev or null;
 

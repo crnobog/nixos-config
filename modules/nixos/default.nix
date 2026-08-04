@@ -46,19 +46,8 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    bat
-    btop
     curl
-    fd
-    fzf
-    git
     nixfmt
-    ripgrep
-    tmux
-    unzip
     wget
-    yazi
-
-    pkgs-unstable.codex
   ];
 }

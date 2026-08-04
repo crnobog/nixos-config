@@ -1,4 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
+let
+  pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+in
 {
   imports = [
     ./neovim.nix
@@ -6,8 +9,21 @@
   ];
 
   home.packages = with pkgs; [
-    tealdeer
+    bat
+    btop
+    curl
     delta
+    fd
+    git
+    nixfmt
+    ripgrep
+    tealdeer
+    tmux
+    unzip
+    wget
+    yazi
+
+    pkgs-unstable.codex
   ];
 
   programs.fzf = {
