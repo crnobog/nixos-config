@@ -1,4 +1,4 @@
-{...}: {
+{ ... }: {
   imports = [
     ./users/rob.nix
     ./homebrew.nix

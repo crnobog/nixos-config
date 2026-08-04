@@ -1,7 +1,11 @@
-{...}: {
+{ ... }: {
   homebrew = {
     enable = true;
-    onActivation.cleanup = "check";
+    onActivation = {
+      cleanup = "check";
+      autoUpdate = false;
+      upgrade = false;
+    };
 
     casks = [
       "discord"
