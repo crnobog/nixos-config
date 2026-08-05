@@ -1,9 +1,15 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 let
   pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 {
   imports = [
+    ./darwin.nix
     ./neovim.nix
     ./zsh.nix
   ];

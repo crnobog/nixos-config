@@ -3,6 +3,7 @@
     ./users/rob.nix
     ./homebrew.nix
     ./system-defaults.nix
+    ./launchd.nix
   ];
   security.pam.services.sudo_local = {
     enable = true;
