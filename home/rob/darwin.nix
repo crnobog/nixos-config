@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 lib.mkIf pkgs.stdenv.isDarwin {
-  programs.ghostty = { 
+  programs.ghostty = {
     enable = true;
     package = null; # Installed with homebrew
     enableZshIntegration = true;
