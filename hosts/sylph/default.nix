@@ -19,6 +19,8 @@
       "font-jetbrains-mono"
       "font-jetbrains-mono-nerd-font"
       "ghostty"
+      "slack"
+      "steam"
       "visual-studio-code"
     ];
   };
