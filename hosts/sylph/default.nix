@@ -15,12 +15,14 @@
 
   homebrew = {
     casks = [
+      "chatgpt"
       "discord"
       "font-jetbrains-mono"
       "font-jetbrains-mono-nerd-font"
       "ghostty"
       "slack"
       "steam"
+      "tailscale-app"
       "visual-studio-code"
     ];
   };
