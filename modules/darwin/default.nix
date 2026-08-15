@@ -4,7 +4,13 @@
     ./homebrew.nix
     ./system-defaults.nix
     ./launchd.nix
+    ../common/ssh.nix
   ];
+  programs.ssh.extraConfig = ''
+    Host *
+      AddKeysToAgent yes
+      UseKeychain yes
+  '';
   security.pam.services.sudo_local = {
     enable = true;
     touchIdAuth = true;

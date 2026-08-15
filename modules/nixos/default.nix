@@ -15,6 +15,7 @@
     ./llm-inference.nix
     ./nfs.nix
     ./users/rob.nix
+    ../common/ssh.nix
   ];
 
   nix.gc = {

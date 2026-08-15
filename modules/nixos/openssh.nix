@@ -26,6 +26,7 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAUsI71T8IWeWGIQY8G7ckNVZcN/scUHZ4yZwCsN7tGM rob@puck"
   ];
 
+  programs.ssh.startAgent = true;
   programs.ssh.knownHosts = lib.mapAttrs (hostName: host: {
     hostNames = [ host.ip ];
     publicKey = host.publicKey;
