@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   imports = [
     ./users/rob.nix
     ./homebrew.nix
@@ -8,7 +8,7 @@
   ];
   programs.ssh.extraConfig = ''
     Host *
-      AddKeysToAgent yes
+      IgnoreUnknown UseKeychain
       UseKeychain yes
   '';
   security.pam.services.sudo_local = {
