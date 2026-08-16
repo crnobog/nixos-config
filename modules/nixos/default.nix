@@ -14,6 +14,7 @@
     ./cpp.nix
     ./llm-inference.nix
     ./nfs.nix
+    ./tailscale.nix
     ./users/rob.nix
     ../common/ssh.nix
   ];
