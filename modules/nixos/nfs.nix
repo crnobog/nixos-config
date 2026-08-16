@@ -24,10 +24,22 @@
         fileSystems."/nfs/meshify/bulk" = {
           device = "${inventory.meshify.ip}:/bulk";
           fsType = "nfs4";
+          options = [
+            "noauto"
+            "x-systemd.automount"
+            "x-systemd.idle-timeout=600"
+            "_netdev"
+          ];
         };
         fileSystems."/nfs/meshify/fast" = {
           device = "${inventory.meshify.ip}:/fast";
           fsType = "nfs4";
+          options = [
+            "noauto"
+            "x-systemd.automount"
+            "x-systemd.idle-timeout=600"
+            "_netdev"
+          ];
         };
       };
 }
