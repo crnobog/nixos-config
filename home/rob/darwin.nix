@@ -1,4 +1,8 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  ...
+}:
 lib.mkIf pkgs.stdenv.isDarwin {
   programs.ghostty = {
     enable = true;
@@ -8,6 +12,7 @@ lib.mkIf pkgs.stdenv.isDarwin {
       theme = "Catppuccin Macchiato";
       font-family = "JetBrainsMono Nerd Font";
       font-size = 14;
+      shell-integration-features = "ssh-env,ssh-terminfo";
     };
   };
 }

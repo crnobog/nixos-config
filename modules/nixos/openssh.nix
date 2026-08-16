@@ -14,6 +14,11 @@
       KbdInteractiveAuthentication = false;
       PermitRootLogin = "no";
       AllowUsers = [ "rob" ];
+      AcceptEnv = [
+        "COLORTERM"
+        "TERM_PROGRAM"
+        "TERM_PROGRAM_VERSION"
+      ];
     };
     extraConfig = ''
       PrintLastLog no

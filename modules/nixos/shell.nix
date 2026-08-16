@@ -9,6 +9,6 @@
   users.defaultUserShell = pkgs.zsh;
 
   environment.systemPackages = with pkgs; [
-    fish
+    ghostty.terminfo
   ];
 }
