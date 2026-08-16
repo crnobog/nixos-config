@@ -24,6 +24,7 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKujA9W5GVAxQxS+mcYEKDw1LMonXaXVwUvJ3CLkTUGo rob@laptop"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIT4qYJak0Yp58rH213qi3cVCCGzduCSb8ZNxCvyZgww rob@meshify"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAUsI71T8IWeWGIQY8G7ckNVZcN/scUHZ4yZwCsN7tGM rob@puck"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB8l2Y++LuIDMIgPJIkYUlhXP5elx9MbzBInmVBbmoNi rob@sylph"
   ];
 
   programs.ssh.startAgent = true;
